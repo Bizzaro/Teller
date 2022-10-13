@@ -172,10 +172,11 @@ def _get_start_year(pdf_text, fi):
 
 def _get_opening_bal(pdf_text, fi):
     print("Getting opening balance...")
-    match = re.search(regexes[fi]['openbal'], pdf_text)
-    print(pdf_text)
-    print(match)
-    print(regexes[fi]['openbal'])
+    match = re.search(regexes[fi]['openbal'], pdf_text, re.MULTILINE)
+
+    # return float(match.groups()[0].replace(",",""))
+    # exit()
+
     if (match.groupdict()['cr'] and '-' not in match.groupdict()['balance']):
         balance = float("-" + match.groupdict()['balance'].replace('$', ''))
         print("Patched credit balance found for opening balance: %f" % balance)
