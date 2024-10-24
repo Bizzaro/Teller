@@ -46,3 +46,11 @@ def get_existing_trans(db_conn):
                                   e[3])
                       for e in existing_rows}
     return existing_trans
+
+def dump_to_csv(db_conn, filename):
+    existing_trans = get_existing_trans(db_conn)
+    with open(filename, 'w') as f:
+        f.write("account_type,timestamp,description,amount\n")
+        for t in existing_trans:
+            f.write(f"{t.date},{t.description},{t.amount}\n")
+    
